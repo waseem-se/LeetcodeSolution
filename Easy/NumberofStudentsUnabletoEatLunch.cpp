@@ -6,36 +6,38 @@ class Solution
 public:
     int countStudents(vector<int> &students, vector<int> &sandwiches)
     {
-        int cnt = 0;
-        queue<int> st;
-        queue<int> sand;
+        ios::sync_with_stdio(0);
+        cin.tie(0);
+        cout.tie(0);
 
+        int cnt1 = 0, cnt0 = 0;
         for (int item : students)
-            st.push(item);
+        {
+            if (item)
+                cnt1++;
+            else
+                cnt0++;
+        }
 
         for (int item : sandwiches)
-            sand.push(item);
-
-        while (!st.empty())
         {
-            if (st.front() == sand.front())
+            if (item)
             {
-                cnt = 0;
-                st.pop();
-                sand.pop();
+                if (cnt1 > 0)
+                    cnt1--;
+                else
+                    break;
             }
             else
             {
-                cnt++;
-                st.push(st.front());
-                st.pop();
+                if (cnt0 > 0)
+                    cnt0--;
+                else
+                    break;
             }
-
-            if (cnt >= st.size())
-                break;
         }
 
-        return st.size();
+        return cnt0 + cnt1;
     }
 };
 
